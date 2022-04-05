@@ -8,8 +8,9 @@ Após clonar o projeto basta rodar o comando:
 ```
 docker-compose up -d
 ```
+Acessar em [localhost:3000](http://localhost:3000)
 
-### 🔧 Instalação
+### 🔧 Acesso CLI
 
 Para acessar a linha de comando basta rodar o comando:
 ```
