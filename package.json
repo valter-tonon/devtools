@@ -9,7 +9,8 @@
         "test:watch": "npm test -- --watchAll",
         "test:staged": "npm test -- --findRelatedTests",
         "test:ci": "npm test -- --coverage",
-        "check": "npm-check -u -s"
+        "check": "npm-check -u -s",
+        "build": "webpack"
     },
     "author": "",
     "license": "ISC",
