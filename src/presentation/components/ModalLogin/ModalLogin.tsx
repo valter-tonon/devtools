@@ -17,6 +17,9 @@ const style = {
     color: '#fff',
     boxShadow: 24,
     flexGrow:1,
+    [ '@media (max-width: 600px)' ]: {
+        width: 300,
+    }
 };
 
 export const ModalLogin = () => {
@@ -31,8 +34,13 @@ export const ModalLogin = () => {
         >
 
             <Grid container sx={style}>
-                <Grid xs={6}
-                      sx={{backgroundImage:`url("${modalLoginBackground}")`, backgroundPosition:'bottom', backgroundSize:'cover', backgroundRepeat:'no-repeat'}}
+                <Grid
+                      lg={6}
+                      sm={12}
+                      sx={{backgroundImage:`url("${modalLoginBackground}")`, backgroundPosition:'bottom', backgroundSize:'cover', backgroundRepeat:'no-repeat',
+                      [ '@media (max-width: 600px)' ]: {
+                          display: 'none',
+                      }}}
                       display={'flex'} justifyContent={'center'}
                       alignItems={'center'}
                 >
@@ -40,14 +48,23 @@ export const ModalLogin = () => {
                         DevTools
                     </Typography>
                 </Grid>
-                <Grid xs={6}
-                      sx={{backgroundColor: "#1C1D3B", height:"100%"}} p={5}
+                <Grid
+                      lg={6}
+                      sm={12}
+                      sx={{backgroundColor: "#1C1D3B", height:"100%", [ '@media (max-width: 600px)' ]: {
+                              width: '100%',
+                          } }} p={5}
                       textAlign={"center"}
                       display={'flex'}
                       justifyContent={'center'}
                       alignItems={'center'}
                       flexDirection={'column'}
                 >
+                    <Typography variant="h4" sx={{  [ '@media (min-width: 600px)' ]: {
+                            display: 'none',
+                        }}}>
+                        DevTools
+                    </Typography>
                     <Typography variant="h6" mb={3}>
                         Log In
                     </Typography>
