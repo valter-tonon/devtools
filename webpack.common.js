@@ -1,4 +1,5 @@
 const path = require('path')
+const {DefinePlugin} = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
@@ -14,6 +15,9 @@ module.exports = {
         }
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new DefinePlugin({
+            'process.env.CLIENT_ID': JSON.stringify('1065700825291-pdj41lhmmoie2c3cu22iu445r8qr7ghv.apps.googleusercontent.com'),
+        })
     ]
 }
