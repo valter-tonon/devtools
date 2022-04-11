@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useContext, useEffect} from 'react';
-import {AppBar, Button, styled, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, IconButton, styled, Toolbar, Typography} from "@mui/material";
 import {GeneratorsMenu} from "@/presentation/components/Menu/GeneratorsMenu";
 import {Link} from "react-router-dom";
 import {ModalLogin} from "@/presentation/components/ModalLogin/ModalLogin";
@@ -8,6 +8,7 @@ import {makeRemoteAuthentication} from "@/main/factories/useCases/authentication
 import axios from "axios";
 import {useGoogleLogout} from "react-google-login";
 import {appContext} from "@/presentation/components/Page/Page";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -83,7 +84,9 @@ export const Navbar = () => {
                             ?
                             <>
                                 <Typography color={"inherit"}>{loggedUser.name}</Typography>
-                                <Button color={'inherit'} onClick={signOut}>sair</Button>
+                                <IconButton color={"inherit"} onClick={signOut}>
+                                    <ExitToAppIcon color={'inherit'}/>
+                                </IconButton>
                             </>
                             :
                             <Button color={"inherit"} onClick={handleOpen}>Login</Button>
