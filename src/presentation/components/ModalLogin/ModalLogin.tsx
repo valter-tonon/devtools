@@ -32,9 +32,8 @@ export const ModalLogin = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-
             <Grid container sx={style}>
-                <Grid
+                <Grid item
                       lg={6}
                       sm={12}
                       sx={{backgroundImage:`url("${modalLoginBackground}")`, backgroundPosition:'bottom', backgroundSize:'cover', backgroundRepeat:'no-repeat',
@@ -48,7 +47,7 @@ export const ModalLogin = () => {
                         DevTools
                     </Typography>
                 </Grid>
-                <Grid
+                <Grid item
                       lg={6}
                       sm={12}
                       sx={{backgroundColor: "#1C1D3B", height:"100%", [ '@media (max-width: 600px)' ]: {

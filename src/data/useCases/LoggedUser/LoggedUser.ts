@@ -1,18 +1,17 @@
+import {IloggedUser, loggedUser, LoggedUserGetParams} from "@/domain/useCases/loggedUser/IloggedUser";
 import {HttpStatusCode} from "@/data/protocols/http/HttpResponse";
-import {HttpPostClient} from "@/data/protocols/http/httpPostClient";
-import {AccountModel} from "@/domain/models/accountModels";
-import {Authentication, AuthenticationParams} from "@/domain/useCases/authentication/authentication";
 import {InvalidCredentialsError} from "@/domain/errors/invalidCredentialsError";
 import {UnexpectedError} from "@/domain/errors/unexpectedError";
+import {HttpGetClient} from "@/data/protocols/http/httpGetClient";
 
-export class RemoteAuthentication implements Authentication {
+export class LoggedUser implements IloggedUser {
     constructor(
         private readonly url: string,
-        private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>
+        private readonly httpGetClient: HttpGetClient<LoggedUserGetParams, loggedUser>
     ) {}
 
-    async auth (params: AuthenticationParams): Promise<AccountModel> {
-        const httpResponse = await this.httpPostClient.post({
+    async get(params): Promise<loggedUser> {
+        const httpResponse = await this.httpGetClient.get({
             url: this.url, body: params
         })
         switch (httpResponse.statusCode) {

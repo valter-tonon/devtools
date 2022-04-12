@@ -41,7 +41,7 @@ module.exports = merge(common, {
             template: './template.dev.html'
         }),
         new DefinePlugin({
-            'process.env.API_URL': JSON.stringify('https://localhost')
+            'process.env.API_URL': JSON.stringify('http://localhost')
         })
     ]
 })

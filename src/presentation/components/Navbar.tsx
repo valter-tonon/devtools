@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {useContext, useEffect} from 'react';
-import {AppBar, Button, IconButton, styled, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, IconButton, styled, Toolbar, Tooltip, Typography} from "@mui/material";
 import {GeneratorsMenu} from "@/presentation/components/Menu/GeneratorsMenu";
 import {Link} from "react-router-dom";
 import {ModalLogin} from "@/presentation/components/ModalLogin/ModalLogin";
 import {makeRemoteAuthentication} from "@/main/factories/useCases/authentication/remoteAuthenticationFactory";
-import axios from "axios";
 import {useGoogleLogout} from "react-google-login";
 import {appContext} from "@/presentation/components/Page/Page";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import {makeLoggedUserGet} from "@/main/factories/useCases/loggedUser/loggedUserGetFactory";
 
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -33,7 +33,6 @@ export const Navbar = () => {
     const handleOpen = () => setOpen(true);
     const [isLogged, setIsLogged] = React.useState(false);
     const {loggedUser, setLoggedUser} = useContext(appContext)
-
     useEffect(() => {
         const token = JSON.parse(sessionStorage.getItem('access_token'));
         if (token) {
@@ -41,28 +40,28 @@ export const Navbar = () => {
             getUser(token)
         }
     }, [isLogged])
-
     const getUser = (token) => {
-        return axios.get(`${process.env.API_URL}/api/user`, {
+        let loggedUser = makeLoggedUserGet()
+        let headers = {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(res => {
-            setLoggedUser(res.data)
-        })
+        }
+        loggedUser.get(headers)
+            .then(response => {
+                setLoggedUser(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
-
-
     const clientId = process.env.CLIENT_ID;
-
-
     const {signOut} = useGoogleLogout({
         clientId,
         onLogoutSuccess: () => {
             logout()
         }
     })
-
     const logout = () => {
         sessionStorage.removeItem('access_token');
         setIsLogged(false)
@@ -84,9 +83,11 @@ export const Navbar = () => {
                             ?
                             <>
                                 <Typography color={"inherit"}>{loggedUser.name}</Typography>
-                                <IconButton color={"inherit"} onClick={signOut}>
-                                    <ExitToAppIcon color={'inherit'}/>
-                                </IconButton>
+                                <Tooltip title={'Sair'} arrow>
+                                    <IconButton color={"inherit"} onClick={signOut}>
+                                        <ExitToAppIcon color={'inherit'}/>
+                                    </IconButton>
+                                </Tooltip>
                             </>
                             :
                             <Button color={"inherit"} onClick={handleOpen}>Login</Button>
